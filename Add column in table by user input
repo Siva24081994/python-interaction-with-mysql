@@ -1,0 +1,28 @@
+# Task (to add column in table)
+
+def add (db_name,table_name):
+    mycursor.execute(f"use {db_name}")
+    col_count = int(input("Enter the no.of columns to be added:"))
+   
+    if col_count < 1:
+        print(" atleast add one column")
+        return
+   
+    column = []
+    for i in range (col_count):
+        col_name = input("Enter column name:")
+        col_datatype=input("Enter column datatype:")
+        
+        column_details = f"`{col_name}` {col_datatype} "
+        column.append(f"ADD {column_details}")
+   
+    Full_col_details = ", ".join(column)
+    add_column = f"ALTER TABLE {table_name} {Full_col_details}"
+   
+    mycursor.execute(add_column)
+    mydb.commit()
+       
+   
+database_name = input("Enter database name:")
+table_name = input("Enter table name:")
+add(database_name,table_name)
