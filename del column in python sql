@@ -1,0 +1,26 @@
+# Task (to del column in table)
+
+def del_col (db_name,table_name):
+    mycursor.execute(f"use {db_name}")
+    col_count = int(input("Enter the no.of columns to be deleted:"))
+   
+    if col_count < 1:
+        print(" atleast del one column")
+        return
+   
+    columns = []
+    for i in range (col_count):
+        col_name = input("Enter column name:")
+        column_details = f"`{col_name}`"
+        columns.append(f"DROP {column_details}")
+   
+    Full_col_details = ", ".join(columns)
+    del_column = f"ALTER TABLE {table_name} {Full_col_details}"
+   
+    mycursor.execute(del_column)
+    mydb.commit()
+       
+   
+database_name = input("Enter database name:")
+table_name = input("Enter table name:")
+del_col(database_name,table_name)
